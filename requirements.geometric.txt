@@ -1,0 +1,4 @@
+# PyTorch Geometric and extensions
+torch_scatter==2.1.0
+torch_sparse==0.6.15
+torch_geometric==2.5.2

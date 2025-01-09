@@ -1,0 +1,33 @@
+{
+    "name": "Neo4j Development Environment",
+    "dockerComposeFile": ["../docker-compose.yml"],
+    "service": "app",
+    "workspaceFolder": "/workspace",
+    
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "neo4j.neo4j-vscode"
+            ],
+            "settings": {
+                "python.defaultInterpreterPath": "/usr/local/bin/python3",
+                "python.terminal.activateEnvironment": false,
+                "neo4j.url": "bolt://neo4j_db:7687",
+                "neo4j.username": "neo4j",
+                "neo4j.password": "password123"
+            }
+        }
+    },
+    
+    "remoteUser": "root",
+    "init": true,
+    "overrideCommand": false,
+    
+    // Forward Neo4j ports
+    "forwardPorts": [7475, 7688],
+    
+    "waitFor": "onCreateCommand",
+    "updateRemoteUserUID": false
+}

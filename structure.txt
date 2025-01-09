@@ -1,0 +1,19 @@
+Folder PATH listing for volume OS
+Volume serial number is EA5E-9801
+C:.
+¦   .env
+¦   .env.example
+¦   .gitignore
+¦   BOM.md
+¦   data_generator.py
+¦   docker-compose.yml
+¦   Dockerfile
+¦   README.md
+¦   requirements.base.txt
+¦   requirements.geometric.txt
+¦   structure.txt
+¦   
++---.devcontainer
+        devcontainer.json
+        docker-compose.extend.yml
+        

@@ -1,49 +1,35 @@
 services:
   neo4j:
-    image: neo4j:5.26
+    build:
+      context: .
+      dockerfile: Docker/neo4j/Dockerfile
     ports:
-      - "7475:7474"  # HTTP
-      - "7688:7687"  # Bolt
-    environment:
-      - NEO4J_AUTH=neo4j/password123
-      - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
-      - NEO4J_PLUGINS=["apoc-extended"]
-      - NEO4J_dbms_security_procedures_unrestricted=apoc.*,gds.*
+      - "7474:7474"
+      - "7687:7687"
     volumes:
       - neo4j_data:/data
-      - neo4j_logs:/logs
-      - neo4j_import:/import
     networks:
-      - app_network
-    container_name: neo4j_db
+      - graph_net
     healthcheck:
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:7474 || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      test: ["CMD", "curl", "-f", "http://localhost:7474"]
 
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Docker/app/Dockerfile
     volumes:
-      - .:/workspace:cached
+      - ./src:/workspace/src
+      - .:/workspace
     depends_on:
       neo4j:
         condition: service_healthy
     networks:
-      - app_network
+      - graph_net
     environment:
-      - NEO4J_URI=bolt://neo4j_db:7687
-      - NEO4J_USER=neo4j
-      - NEO4J_PASSWORD=password123
-    command: sleep infinity
-    container_name: app_dev
+      - NEO4J_URI=bolt://neo4j:7687
 
 networks:
-  app_network:
-    name: neo4j_dev_network
-    driver: bridge
+  graph_net:
 
 volumes:
   neo4j_data:
-  neo4j_logs:
-  neo4j_import:

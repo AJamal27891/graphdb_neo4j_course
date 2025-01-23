@@ -1,4 +1,6 @@
-# PyTorch Geometric and extensions
-torch_scatter==2.1.0
-torch_sparse==0.6.15
-torch_geometric==2.5.2
+# requirements.geometric.txt
+torch-scatter==2.1.2+pt20cu118  # Valid version for PyTorch 2.0.1 + CUDA 11.8
+torch-sparse==0.6.18+pt20cu118
+torch-cluster==1.6.2+pt20cu118
+torch-spline-conv==1.2.2+pt20cu118
+torch-geometric==2.4.0
